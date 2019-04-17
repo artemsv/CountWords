@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CountWords": {
+      "commandName": "Project",
+      "commandLineArgs": "https://s3.amazonaws.com/idt-code-challenge/records.txt https://s3.amazonaws.com/idt-code-challenge/queries.txt"
+    }
+  }
+}
