@@ -19,50 +19,69 @@ namespace CountWords
 
         internal async Task RunAsync()
         {
+            Console.WriteLine();
+            Console.WriteLine("#######################");
+
             var httpClient = new HttpClient();
 
             var timeStamp = Stopwatch.StartNew();
 
             var queries = await httpClient.GetStringAsync(_parameters.QueryUrl);
-            var content = await httpClient.GetStringAsync(_parameters.SourceUrl);
+            var stream = await httpClient.GetStreamAsync(_parameters.SourceUrl);
             //var content = await File.ReadAllTextAsync(@"c:\Users\a.sokolov\Downloads\records.txt");
-            
-            timeStamp.Stop();
-            Console.WriteLine($"Download time: {timeStamp.ElapsedMilliseconds}ms");
 
-            timeStamp.Restart();
             var queryLines = queries.Split('\n');
-            var lines = content.Split('\n');
-            timeStamp.Stop();
-            Console.WriteLine($"Split time: {timeStamp.ElapsedMilliseconds}ms");
-
-            timeStamp.Restart();
-
-            foreach (var line in lines)
+            using (var reader = new StreamReader(stream))
             {
-                var words = line.Split(',');
-
-                foreach (var queryLine in queryLines)
+                while (!reader.EndOfStream)
                 {
-                    var queryWords = queryLine.Split(',');
 
-                    var recordSet = new HashSet<string>(words);
-
-                    if (recordSet.IsSupersetOf(queryWords))
-                    {
-                        recordSet.ExceptWith(queryWords);
-                        var g = recordSet.GroupBy(x => x);
-                        var wordsCountStr = string.Join(", ", g.Select(x => $"{x.Key}: {x.Count()}"));
-
-                        Console.WriteLine($"{{{wordsCountStr}}}");
-                    }
+                    var line = reader.ReadLine();
+                    HandleLine(line, queryLines);
                 }
             }
+
+            //timeStamp.Stop();
+            //Console.WriteLine($"Download time: {timeStamp.ElapsedMilliseconds}ms");
+
+            //timeStamp.Restart();
+            //var queryLines = queries.Split('\n');
+            //var lines = content.Split('\n');
+            //timeStamp.Stop();
+            //Console.WriteLine($"Split time: {timeStamp.ElapsedMilliseconds}ms");
+
+            //timeStamp.Restart();
+
+            //foreach (var line in lines)
+            //{
+
+            //}
 
             timeStamp.Stop();
 
             Console.WriteLine($"Calculation time: {timeStamp.ElapsedMilliseconds}ms");
-            Console.ReadLine();
+            //Console.ReadLine();
+        }
+
+        private static void HandleLine(string line, string[] queryLines)
+        {
+            var words = line.Split(',');
+
+            foreach (var queryLine in queryLines)
+            {
+                var queryWords = queryLine.Split(',');
+
+                var recordSet = new HashSet<string>(words);
+
+                if (recordSet.IsSupersetOf(queryWords))
+                {
+                    recordSet.ExceptWith(queryWords);
+                    var g = recordSet.GroupBy(x => x);
+                    var wordsCountStr = string.Join(", ", g.Select(x => $"{x.Key}: {x.Count()}"));
+
+                    Console.WriteLine($"{{{wordsCountStr}}}");
+                }
+            }
         }
     }
 }
