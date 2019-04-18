@@ -11,7 +11,7 @@ namespace CountWords
 
             if (parameters != null)
             {
-                await new Parser(parameters).RunAsync();
+                await new StreamedParser(parameters).RunAsync();
             }
             else
             {

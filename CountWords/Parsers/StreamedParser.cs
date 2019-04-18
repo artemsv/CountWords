@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CountWords
 {
-    internal class Parser
+    internal class StreamedParser
     {
         private readonly ApplicationParameters _parameters;
 
-        public Parser(ApplicationParameters parameters)
+        public StreamedParser(ApplicationParameters parameters)
         {
             _parameters = parameters;
         }
