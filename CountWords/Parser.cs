@@ -10,7 +10,7 @@ namespace CountWords
 {
     internal class Parser
     {
-        private ApplicationParameters _parameters;
+        private readonly ApplicationParameters _parameters;
 
         public Parser(ApplicationParameters parameters)
         {
@@ -41,26 +41,9 @@ namespace CountWords
                 }
             }
 
-            //timeStamp.Stop();
-            //Console.WriteLine($"Download time: {timeStamp.ElapsedMilliseconds}ms");
-
-            //timeStamp.Restart();
-            //var queryLines = queries.Split('\n');
-            //var lines = content.Split('\n');
-            //timeStamp.Stop();
-            //Console.WriteLine($"Split time: {timeStamp.ElapsedMilliseconds}ms");
-
-            //timeStamp.Restart();
-
-            //foreach (var line in lines)
-            //{
-
-            //}
-
             timeStamp.Stop();
 
             Console.WriteLine($"Calculation time: {timeStamp.ElapsedMilliseconds}ms");
-            //Console.ReadLine();
         }
 
         private static void HandleLine(string line, string[] queryLines)
