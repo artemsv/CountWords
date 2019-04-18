@@ -62,7 +62,7 @@ namespace CountWords
             timeStamp.Stop();
 
             Console.WriteLine($"Calculation time: {timeStamp.ElapsedMilliseconds}ms");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }
