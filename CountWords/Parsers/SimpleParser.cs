@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CountWords.LineHandlers;
 
 namespace CountWords.Parsers
 {
@@ -40,23 +41,7 @@ namespace CountWords.Parsers
 
             foreach (var line in lines)
             {
-                var words = line.Split(',');
-
-                foreach (var queryLine in queryLines)
-                {
-                    var queryWords = queryLine.Split(',');
-
-                    var recordSet = new HashSet<string>(words);
-
-                    if (recordSet.IsSupersetOf(queryWords))
-                    {
-                        recordSet.ExceptWith(queryWords);
-                        var g = recordSet.GroupBy(x => x);
-                        var wordsCountStr = string.Join(", ", g.Select(x => $"{x.Key}: {x.Count()}"));
-
-                        Console.WriteLine($"{{{wordsCountStr}}}");
-                    }
-                }
+                ExceptBasedLineHandler.Handle(line, queryLines);
             }
 
             timeStamp.Stop();

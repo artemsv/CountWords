@@ -1,9 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
+using CountWords.LineHandlers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using CountWords.Parsers;
 
 namespace CountWords.Benchmarks
 {
@@ -25,38 +25,29 @@ namespace CountWords.Benchmarks
         }
 
         [Benchmark]
-        public void HandleLineTest()
+        public void HashSetBasedLineHandlerTest()
         {
             foreach (var line in _lines)
             {
-                StreamedParser.HandleLine(line, _queries);
+                HashSetBasedLineHandler.Handle(line, _queries);
             }
         }
 
         [Benchmark]
-        public void HandleLine2Test()
+        public void ExceptBasedLineHandlerTest()
         {
             foreach (var line in _lines)
             {
-                StreamedParser.HandleLine2(line, _queries);
+                ExceptBasedLineHandler.Handle(line, _queries);
             }
         }
 
         [Benchmark]
-        public void HandleLine3Test()
+        public void DictionaryBasedLineHandlerTest()
         {
             foreach (var line in _lines)
             {
-                StreamedParser.HandleLine3(line, _queries);
-            }
-        }
-
-        [Benchmark]
-        public void HandleLine4Test()
-        {
-            foreach (var line in _lines)
-            {
-                StreamedParser.HandleLine4(line, _queries);
+                DictionaryBasedLineHandler.Handle(line, _queries);
             }
         }
     }
