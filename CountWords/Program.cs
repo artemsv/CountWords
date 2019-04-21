@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CountWords.Parsers;
+using System;
 using System.Threading.Tasks;
-using CountWords.Parsers;
 
 namespace CountWords
 {
@@ -13,8 +12,14 @@ namespace CountWords
 
             if (parameters != null)
             {
-                await new StreamedMultiThreadedParser(parameters).RunAsync();
-                //await new StreamedParser(parameters).RunAsync();
+                // 1. The simplest way 
+                // await new SimpleParser(parameters).RunAsync();
+                
+                // 2. Some optimizations
+                await new StreamedParser(parameters).RunAsync();
+
+                // 3. the fastest way
+                //await new StreamedMultiThreadedParser(parameters).RunAsync();
             }
             else
             {

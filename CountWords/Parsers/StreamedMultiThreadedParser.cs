@@ -45,7 +45,6 @@ namespace CountWords.Parsers
 
             var queries = await httpClient.GetStringAsync(_parameters.QueryUrl);
             var stream = await httpClient.GetStreamAsync(_parameters.SourceUrl);
-            //var stream = File.OpenRead(@"c:\Users\a.sokolov\Downloads\records.txt");
 
             var queryLines = queries.Split('\n');
 

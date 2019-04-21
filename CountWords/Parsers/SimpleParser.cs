@@ -26,7 +26,6 @@ namespace CountWords.Parsers
 
             var queries = await httpClient.GetStringAsync(_parameters.QueryUrl);
             var content = await httpClient.GetStringAsync(_parameters.SourceUrl);
-            //var content = await File.ReadAllTextAsync(@"c:\Users\a.sokolov\Downloads\records.txt");
             
             timeStamp.Stop();
             Console.WriteLine($"Download time: {timeStamp.ElapsedMilliseconds}ms");
@@ -47,7 +46,6 @@ namespace CountWords.Parsers
             timeStamp.Stop();
 
             Console.WriteLine($"Calculation time: {timeStamp.ElapsedMilliseconds}ms");
-            //Console.ReadLine();
         }
     }
 }

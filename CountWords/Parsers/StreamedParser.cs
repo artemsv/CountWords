@@ -21,16 +21,12 @@ namespace CountWords.Parsers
 
         public async Task RunAsync()
         {
-            Console.WriteLine();
-            Console.WriteLine("#######################");
-
             var httpClient = new HttpClient();
 
             var timeStamp = Stopwatch.StartNew();
 
             var queries = await httpClient.GetStringAsync(_parameters.QueryUrl);
-            //var stream = await httpClient.GetStreamAsync(_parameters.SourceUrl);
-            var stream = File.OpenRead(@"c:\Users\a.sokolov\Downloads\records.txt");
+            var stream = await httpClient.GetStreamAsync(_parameters.SourceUrl);
 
             var queryLines = queries.Split('\n');
             using (var reader = new StreamReader(stream))
@@ -38,7 +34,7 @@ namespace CountWords.Parsers
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    DictionaryBasedLineHandler.Handle(line, queryLines);
+                    DictionaryBased2LineHandler.Handle(line, queryLines);
                 }
             }
 

@@ -11,10 +11,11 @@ namespace CountWords.Benchmarks
     public class ParsersBenchmarks
     {
         private readonly string[] _queries;
-        private IEnumerable<string> _lines;
+        private readonly IEnumerable<string> _lines;
 
         public ParsersBenchmarks()
         {
+            //  the file should be downloaded at first
             var lines = File.ReadLines(@"c:\Users\a.sokolov\Downloads\records.txt");
 
             var httpClient = new HttpClient();
@@ -22,15 +23,6 @@ namespace CountWords.Benchmarks
                 .GetAwaiter().GetResult().Split('\n');
 
             _lines = lines.Take(10000).ToList();
-        }
-
-        [Benchmark]
-        public void HashSetBasedLineHandlerTest()
-        {
-            foreach (var line in _lines)
-            {
-                HashSetBasedLineHandler.Handle(line, _queries);
-            }
         }
 
         [Benchmark]
@@ -48,6 +40,15 @@ namespace CountWords.Benchmarks
             foreach (var line in _lines)
             {
                 DictionaryBasedLineHandler.Handle(line, _queries);
+            }
+        }
+
+        [Benchmark]
+        public void DictionaryBased2LineHandlerTest()
+        {
+            foreach (var line in _lines)
+            {
+                DictionaryBased2LineHandler.Handle(line, _queries);
             }
         }
     }
