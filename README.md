@@ -26,7 +26,7 @@ Due to the uncertain nature of the network, these tests provide a fairly wide va
 
 # Benchmarking
 
-Also there are several types of an internal algorithm for a direct matching calculation. There are some benchmarks (please, see TestResults\Benchmarks_XX.png) were used in order to choose the optimal algorithm. Unfortuntely we have failed to setup benchmark environment in command line with arguments so for now the 
+Also there are several types of an internal algorithm for a direct matching calculation. There are some benchmarks (please, see TestResults\Benchmarks_XX.png) were used in order to choose the optimal algorithm. Unfortuntely we have failed to setup benchmark environment in command line with arguments so for now you should run benchmarks in VS (do not forget to switch to the Release mode and run it with Ctrl + F5).
 
-The choosen one is DictionaryBased2 (the best by speed and memory consuption) but it seems that there are also many opportunities for optimization...
+The choosen algorithm is DictionaryBased2 (the best by speed and memory consuption) but it seems that there are also many opportunities for optimization...
  
