@@ -31,6 +31,7 @@ namespace CountWords.Parsers
     {
         private readonly ApplicationParameters _parameters;
         private readonly BlockingCollection<Block> _queue;
+        private readonly int MaxThreads = Environment.ProcessorCount;
 
         public StreamedMultiThreadedParser(ApplicationParameters parameters)
         {
@@ -82,13 +83,13 @@ namespace CountWords.Parsers
 
         private Task[] PrepareConsumers(string[] queryLines)
         {
-            return Enumerable.Range(1, Environment.ProcessorCount).Select(w => Task.Factory.StartNew(x =>
+            return Enumerable.Range(1, MaxThreads).Select(w => Task.Factory.StartNew(x =>
             {
                 foreach (var block in _queue.GetConsumingEnumerable())
                 {
                     for (var k = 0; k < block.Counter; k++)
                     {
-                        ExceptBasedLineHandler.Handle(block.Buffer[k], queryLines);
+                        DictionaryBased2LineHandler.Handle(block.Buffer[k], queryLines);
                     }
                 }
 

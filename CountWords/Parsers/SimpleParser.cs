@@ -40,7 +40,7 @@ namespace CountWords.Parsers
 
             foreach (var line in lines)
             {
-                ExceptBasedLineHandler.Handle(line, queryLines);
+                DictionaryBased2LineHandler.Handle(line, queryLines);
             }
 
             timeStamp.Stop();

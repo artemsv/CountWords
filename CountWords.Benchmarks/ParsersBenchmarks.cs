@@ -11,18 +11,15 @@ namespace CountWords.Benchmarks
     public class ParsersBenchmarks
     {
         private readonly string[] _queries;
-        private readonly IEnumerable<string> _lines;
+        private readonly string[] _lines;
 
         public ParsersBenchmarks()
         {
-            //  the file should be downloaded at first
-            var lines = File.ReadLines(@"c:\Users\a.sokolov\Downloads\records.txt");
+            //  the files should be downloaded at first
+            var lines = File.ReadLines(@"c:\Users\a.sokolov\Downloads\records.txt").ToArray();
+            _queries = File.ReadLines(@"c:\Users\a.sokolov\Downloads\queries.txt").ToArray();
 
-            var httpClient = new HttpClient();
-            _queries = httpClient.GetStringAsync("https://s3.amazonaws.com/idt-code-challenge/queries.txt")
-                .GetAwaiter().GetResult().Split('\n');
-
-            _lines = lines.Take(10000).ToList();
+            _lines = lines.Take(10000).ToArray();
         }
 
         [Benchmark]

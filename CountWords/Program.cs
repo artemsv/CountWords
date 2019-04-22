@@ -8,18 +8,20 @@ namespace CountWords
     {
         static async Task Main(string[] args)
         {
+            Console.WriteLine("CountWords utility version 1.0");
+
             var parameters = ParseCommandLine(args);
 
             if (parameters != null)
             {
                 // 1. The simplest way 
-                // await new SimpleParser(parameters).RunAsync();
+                //await new SimpleParser(parameters).RunAsync();
                 
                 // 2. Some optimizations
-                await new StreamedParser(parameters).RunAsync();
+                //await new StreamedParser(parameters).RunAsync();
 
                 // 3. the fastest way
-                //await new StreamedMultiThreadedParser(parameters).RunAsync();
+                await new StreamedMultiThreadedParser(parameters).RunAsync();
             }
             else
             {

@@ -20,10 +20,14 @@ namespace CountWords.LineHandlers
                 else
                     dic[words[k]] = (1, dic.Count);
             }
-
+            
             foreach (var queryLine in queryLines)
             {
                 var indexes = new bool[dic.Count];
+
+                //for (var k = 0; k < indexes.Length; k++)
+                //    indexes[k] = false;
+
                 var queryWords = queryLine.Split(',');
                 var exists = 0;
                 for (int k = 0; k < queryWords.Length; k++)

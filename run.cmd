@@ -1,0 +1,1 @@
+dotnet run --project CountWords\CountWords.csproj https://s3.amazonaws.com/idt-code-challenge/records.txt https://s3.amazonaws.com/idt-code-challenge/queries.txt
